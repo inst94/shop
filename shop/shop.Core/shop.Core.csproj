@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Dtos\" />
-    <Folder Include="ServiceInterface\" />
   </ItemGroup>
 
 </Project>
