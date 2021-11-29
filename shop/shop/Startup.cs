@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using shop.ApplicatonServices.Services;
+using shop.Controllers;
+using shop.Core.ServiceInterface;
 using shop.Data;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,8 @@ namespace shop
 
             services.AddDbContext<shopDbContext>(options =>
                 options.UseSqlServer(_config["DefaultConnection"]));
+
+            services.AddScoped<IProductService, ProductServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

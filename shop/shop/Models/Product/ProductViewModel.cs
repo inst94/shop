@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace shop.Models.Product
+namespace shop.Views.Product
 {
-    public class ProductListViewModel
+    public class ProductViewModel
     {
         public Guid? Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,5 @@ namespace shop.Models.Product
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
-
     }
 }

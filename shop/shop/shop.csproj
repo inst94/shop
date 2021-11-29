@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\shop.ApplicatonServices\shop.ApplicatonServices.csproj" />
     <ProjectReference Include="..\shop.Data\shop.Data.csproj" />
   </ItemGroup>
 
