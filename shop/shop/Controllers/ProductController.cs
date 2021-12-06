@@ -7,6 +7,8 @@ using shop.Core.ServiceInterface;
 using shop.Data;
 using shop.Models.Product;
 using shop.Views.Product;
+using shop.Models.Files;
+using Microsoft.EntityFrameworkCore;
 
 namespace shop.Controllers
 {
@@ -67,7 +69,15 @@ namespace shop.Controllers
                 Amount = model.Amount,
                 Price = model.Price,
                 ModifiedAt = model.ModifiedAt,
-                CreatedAt = model.CreatedAt
+                CreatedAt = model.CreatedAt,
+                Files = model.Files,
+                ExistingFilePaths = model.ExistingFilePaths
+                    .Select(x => new ExistingFilePathDto
+                    {
+                        PhotoId = x.PhotoId,
+                        FilePath = x.FilePath,
+                        ProductId = x.ProductId
+                    }).ToArray()
             };
             var result = await _productService.Add(dto);
             if (result == null)
@@ -84,6 +94,14 @@ namespace shop.Controllers
             {
                 return NotFound();
             }
+            var photos = await _context.ExistingFilePath
+                .Where(x => x.ProductId == id)
+                .Select(y => new ExistingFilePathViewModel
+                {
+                    FilePath = y.FilePath,
+                    PhotoId = y.Id
+                })
+                .ToArrayAsync();
 
             var model = new ProductViewModel();
 
@@ -94,6 +112,7 @@ namespace shop.Controllers
             model.Price = product.Price;
             model.ModifiedAt = product.ModifiedAt;
             model.CreatedAt = product.CreatedAt;
+            model.ExistingFilePaths.AddRange(photos);
 
             return View(model);
         }

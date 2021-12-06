@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using shop.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace shop.Data
 {
@@ -14,6 +10,7 @@ namespace shop.Data
             : base(options) { }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<ExistingFilePath> ExistingFilePath { get; set; }
 
     }
 }

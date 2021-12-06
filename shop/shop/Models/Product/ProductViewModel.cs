@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using shop.Models.Files;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace shop.Views.Product
 {
@@ -14,5 +15,8 @@ namespace shop.Views.Product
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public List<ExistingFilePathViewModel> ExistingFilePaths { get; set; } = new List<ExistingFilePathViewModel>();
+
     }
 }

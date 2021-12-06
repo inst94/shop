@@ -1,22 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using shop.Core.Domain;
 using shop.Core.Dtos;
 using shop.Core.ServiceInterface;
 using shop.Data;
 using System;
+using System.IO;
 using System.Threading.Tasks;
+
 
 namespace shop.ApplicatonServices.Services
 {
     public class ProductServices : IProductService
     {
         private readonly shopDbContext _context;
+        private readonly IWebHostEnvironment _env;
         public ProductServices
             (
-                shopDbContext context
+                shopDbContext context,
+                IWebHostEnvironment env
             )
         {
             _context = context;
+            _env = env;
         }
         public async Task<Product> Delete(Guid id)
         {
@@ -30,21 +36,21 @@ namespace shop.ApplicatonServices.Services
         }
         public async Task<Product> Add(ProductDto dto)
         {
-            var domain = new Product()
-            {
-                Id = dto.Id,
-                Description = dto.Description,
-                Name = dto.Name,
-                Amount = dto.Amount,
-                Price = dto.Price,
-                ModifiedAt = DateTime.Now,
-                CreatedAt = DateTime.Now
-            };
+            Product product = new Product();
 
-            await _context.Product.AddAsync(domain);
+            product.Id = Guid.NewGuid();
+            product.Description = dto.Description;
+            product.Name = dto.Name;
+            product.Amount = dto.Amount;
+            product.Price = dto.Price;
+            product.ModifiedAt = DateTime.Now;
+            product.CreatedAt = DateTime.Now;
+            ProcessUploadedFile(dto, product);
+
+            await _context.Product.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            return domain;
+            return product;
         }
         public async Task<Product> Edit(Guid id)
         {
@@ -70,6 +76,36 @@ namespace shop.ApplicatonServices.Services
             await _context.SaveChangesAsync();
 
             return product;
+        }
+        public string ProcessUploadedFile(ProductDto dto, Product product)
+        {
+            string uniqueFileName = null;
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                if(!Directory.Exists(_env.WebRootPath + "\\multipleFileUpload\\"))
+                {
+                    Directory.CreateDirectory(_env.WebRootPath + "\\multipleFileUpload\\");
+                }
+                foreach (var photo in dto.Files)
+                {
+                    string uploadFolder = Path.Combine(_env.WebRootPath, "multipleFileUpload");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                    using(var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        photo.CopyTo(fileStream);
+                        ExistingFilePath paths = new ExistingFilePath
+                        {
+                            Id = Guid.NewGuid(),
+                            FilePath = uniqueFileName,
+                            ProductId = product.Id
+                        };
+                        _context.ExistingFilePath.Add(paths);
+                    }
+                }
+            }
+            return uniqueFileName;
         }
 
     }
