@@ -11,5 +11,6 @@ namespace shop.Core.ServiceInterface
         Task<Product> Add(ProductDto dto);
         Task<Product> Edit(Guid id);
         Task<Product> Update(ProductDto dto);
+        Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto);
     }
 }

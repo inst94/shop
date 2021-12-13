@@ -45,11 +45,12 @@ namespace shop.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var product = await _productService.Delete(id);
+
             if (product == null)
             {
                 RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index), product);
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Add()
@@ -128,7 +129,15 @@ namespace shop.Controllers
                 Amount = model.Amount,
                 Price = model.Price,
                 ModifiedAt = model.ModifiedAt,
-                CreatedAt = model.CreatedAt
+                CreatedAt = model.CreatedAt,
+                Files = model.Files,
+                ExistingFilePaths = model.ExistingFilePaths
+                    .Select(x => new ExistingFilePathDto
+                    {
+                        PhotoId = x.PhotoId,
+                        FilePath = x.FilePath,
+                        ProductId = x.ProductId
+                    }).ToArray()
             };
 
             var result = await _productService.Update(dto);
@@ -138,6 +147,21 @@ namespace shop.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index), model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(ExistingFilePathViewModel model)
+        {
+            var dto = new ExistingFilePathDto()
+            {
+                PhotoId = model.PhotoId
+            };
+            var image = await _productService.RemoveImage(dto);
+            if (image == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
