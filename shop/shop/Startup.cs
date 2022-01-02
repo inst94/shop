@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using shop.ApplicatonServices.Services;
-using shop.Controllers;
 using shop.Core.ServiceInterface;
 using shop.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace shop
 {
@@ -34,6 +28,8 @@ namespace shop
                 options.UseSqlServer(_config["DefaultConnection"]));
 
             services.AddScoped<IProductService, ProductServices>();
+
+            services.AddScoped<ICarService, CarServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
