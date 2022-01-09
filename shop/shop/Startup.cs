@@ -34,6 +34,7 @@ namespace shop
                 options.UseSqlServer(_config["DefaultConnection"]));
 
             services.AddScoped<IProductService, ProductServices>();
+            services.AddScoped<IFileService, FileServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
