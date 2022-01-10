@@ -20,8 +20,6 @@ namespace shop.Controllers
             (
                 shopDbContext context,
                 IProductService productService
-
-
             )
         {
             _context = context;

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace shop.Models.Cars
+namespace shop.Models.Car
 {
-    public class CarsListViewModel
+    public class CarListViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public string Mark { get; set; }
         public string Model { get; set; }
         public double Price { get; set; }

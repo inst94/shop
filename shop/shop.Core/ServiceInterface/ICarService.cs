@@ -7,10 +7,6 @@ namespace shop.Core.ServiceInterface
 {
     public interface ICarService
     {
-        Task<Cars> Delete(Guid id);
-        Task<Cars> Add(CarDto dto);
-        Task<Cars> Edit(Guid id);
-        Task<Cars> Update(CarDto dto);
-        Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto);
+        Task<Car> Delete(Guid id);
     }
 }

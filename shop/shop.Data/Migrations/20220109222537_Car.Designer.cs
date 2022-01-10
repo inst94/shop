@@ -10,8 +10,8 @@ using shop.Data;
 namespace shop.Data.Migrations
 {
     [DbContext(typeof(shopDbContext))]
-    [Migration("20220102122830_Cars")]
-    partial class Cars
+    [Migration("20220109222537_Car")]
+    partial class Car
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,9 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -47,7 +47,7 @@ namespace shop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
@@ -59,9 +59,6 @@ namespace shop.Data.Migrations
                     b.Property<Guid?>("CarId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -69,8 +66,6 @@ namespace shop.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarsId");
 
                     b.HasIndex("ProductId");
 
@@ -108,18 +103,9 @@ namespace shop.Data.Migrations
 
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
                 {
-                    b.HasOne("shop.Core.Domain.Cars", null)
-                        .WithMany("ExistingFilePaths")
-                        .HasForeignKey("CarsId");
-
                     b.HasOne("shop.Core.Domain.Product", null)
                         .WithMany("ExistingFilePaths")
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
-                {
-                    b.Navigation("ExistingFilePaths");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
