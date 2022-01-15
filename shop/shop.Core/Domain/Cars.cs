@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace shop.Models.Car
+namespace shop.Core.Domain
 {
-    public class CarListViewModel
+    public class Cars
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string Mark { get; set; }
         public string Model { get; set; }
+        public int Year { get; set; }
         public double Price { get; set; }
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
-
+        public IEnumerable<ExistingFilePathCar> ExistingFilePathsCar { get; set; } = new List<ExistingFilePathCar>();
     }
 }

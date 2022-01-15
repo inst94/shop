@@ -1,14 +1,11 @@
 ﻿using System;
 
-
 namespace shop.Core.Domain
 {
-    public class ExistingFilePath
+    public class ExistingFilePathCar
     {
         public Guid Id { get; set; }
         public string FilePath { get; set; }
-        public Guid? ProductId { get; set; }
-        public Guid CarId { get; set; }
-
+        public Guid? CarId { get; set; }
     }
 }

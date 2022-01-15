@@ -10,8 +10,8 @@ using shop.Data;
 namespace shop.Data.Migrations
 {
     [DbContext(typeof(shopDbContext))]
-    [Migration("20220109222537_Car")]
-    partial class Car
+    [Migration("20220115222510_Cars")]
+    partial class Cars
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,9 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("shop.Core.Domain.Car", b =>
+            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -45,9 +45,12 @@ namespace shop.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Car");
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
@@ -56,7 +59,7 @@ namespace shop.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarId")
+                    b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FilePath")
@@ -70,6 +73,28 @@ namespace shop.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ExistingFilePath");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.ExistingFilePathCar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CarsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarsId");
+
+                    b.ToTable("ExistingFilePathCar");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
@@ -106,6 +131,18 @@ namespace shop.Data.Migrations
                     b.HasOne("shop.Core.Domain.Product", null)
                         .WithMany("ExistingFilePaths")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.ExistingFilePathCar", b =>
+                {
+                    b.HasOne("shop.Core.Domain.Cars", null)
+                        .WithMany("ExistingFilePathsCar")
+                        .HasForeignKey("CarsId");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
+                {
+                    b.Navigation("ExistingFilePathsCar");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
