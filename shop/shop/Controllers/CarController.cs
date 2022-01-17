@@ -65,20 +65,20 @@ namespace shop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CarViewModel model)
+        public async Task<IActionResult> Add(CarViewModel mod)
         {
             var dto = new CarDto()
             {
-                Id = model.Id,
-                Mark = model.Mark,
-                Model = model.Model,
-                Year = model.Year,
-                Amount = model.Amount,
-                Price = model.Price,
-                ModifiedAt = model.ModifiedAt,
-                CreatedAt = model.CreatedAt,
-                Files = model.Files,
-                ExistingFilePathsCar = model.ExistingFilePathsCar
+                Id = mod.Id,
+                Mark = mod.Mark,
+                Model = mod.Model,
+                Year = mod.Year,
+                Amount = mod.Amount,
+                Price = mod.Price,
+                ModifiedAt = mod.ModifiedAt,
+                CreatedAt = mod.CreatedAt,
+                Files = mod.Files,
+                ExistingFilePathsCar = mod.ExistingFilePaths
                     .Select(x => new ExistingFilePathCarDto
                     {
                         PhotoId = x.PhotoId,
@@ -104,7 +104,7 @@ namespace shop.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.ExistingFilePathCar
+            var photos = await _context.ExistingFilePath
                .Where(x => x.CarId == id)
                .Select(y => new ExistingFilePathCarViewModel
                {
@@ -123,25 +123,25 @@ namespace shop.Controllers
             model.Price = cars.Price;
             model.ModifiedAt = cars.ModifiedAt;
             model.CreatedAt = cars.CreatedAt;
-            model.ExistingFilePathsCar.AddRange(photos);
+            model.ExistingFilePaths.AddRange(photos);
 
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(CarViewModel model)
+        public async Task<IActionResult> Update(CarViewModel mod)
         {
             var dto = new CarDto()
             {
-                Id = model.Id,
-                Mark = model.Mark,
-                Model = model.Model,
-                Year = model.Year,
-                Amount = model.Amount,
-                Price = model.Price,
-                ModifiedAt = model.ModifiedAt,
-                CreatedAt = model.CreatedAt,
-                Files = model.Files,
-                ExistingFilePathsCar = model.ExistingFilePathsCar
+                Id = mod.Id,
+                Mark = mod.Mark,
+                Model = mod.Model,
+                Year = mod.Year,
+                Amount = mod.Amount,
+                Price = mod.Price,
+                ModifiedAt = mod.ModifiedAt,
+                CreatedAt = mod.CreatedAt,
+                Files = mod.Files,
+                ExistingFilePathsCar = mod.ExistingFilePaths
                     .Select(x => new ExistingFilePathCarDto
                     {
                         PhotoId = x.PhotoId,
@@ -156,7 +156,7 @@ namespace shop.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index), model);
+            return RedirectToAction(nameof(Index), mod);
         }
         [HttpPost]
         public async Task<IActionResult> RemoveImage(ExistingFilePathCarViewModel model)

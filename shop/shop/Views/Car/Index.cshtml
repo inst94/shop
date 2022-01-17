@@ -5,7 +5,7 @@
     int queueNumber = 0;
 }
 <div>
-    <a asp-action="add" asp-controller="cars" type="submit" class="btn btn-danger">Add</a>
+    <a asp-action="add" asp-controller="car" type="submit" class="btn btn-danger">Add</a>
 </div>
 <form method="post">
     <table class="table table-hover">
@@ -31,8 +31,8 @@
                 <td class="">@cars.Price</td>
                 <td class="">@cars.Amount</td>
                 <td>
-                    <a asp-action="edit" asp-controller="cars" asp-route-id="@cars.Id" class="btn btn-primary">Edit</a>
-                    <input asp-action="delete" asp-controller="cars" asp-route-id="@cars.Id" type="submit" class="btn btn-danger" value="Delete" />
+                    <a asp-action="edit" asp-controller="car" asp-route-id="@cars.Id" class="btn btn-primary">Edit</a>
+                    <input asp-action="delete" asp-controller="car" asp-route-id="@cars.Id" type="submit" class="btn btn-danger" value="Delete" />
                 </td>
             </tr>
             }

@@ -60,19 +60,19 @@ else
             </div>
         </div>
 
-        @foreach (var photo in Model.ExistingFilePathsCar)
+        @foreach (var photo in Model.ExistingFilePaths)
         {
-            <partial name="_CarPhoto" model="photo" />
+            <partial name="_Photo" model="photo" />
         }
 
         @if (Model.Id.HasValue)
         {
-            <input asp-action="update" asp-controller="cars" type="submit" class="btn btn-primary" value="Update">
-            <input asp-action="delete" asp-controller="cars" asp-for="Id" type="submit" class="btn btn-danger" value="Delete">
+            <input asp-action="update" asp-controller="car" type="submit" class="btn btn-primary" value="Update">
+            <input asp-action="delete" asp-controller="car" asp-for="Id" type="submit" class="btn btn-danger" value="Delete">
         }
         else
         {
-            <input asp-action="add" asp-controller="cars" type="submit" class="btn btn-primary" value="Add">
+            <input asp-action="add" asp-controller="car" type="submit" class="btn btn-primary" value="Add">
         }
         <a asp-action="index" class="btn btn-primary">Index</a>
 

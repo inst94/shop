@@ -26,7 +26,7 @@ namespace shop.ApplicatonServices.Services
         }
         public async Task<Cars> Delete(Guid id)
         {
-            var photos = await _context.ExistingFilePathCar
+            var photos = await _context.ExistingFilePath
                .Where(x => x.CarId == id)
                .Select(y => new ExistingFilePathCarDto
                {
@@ -37,7 +37,7 @@ namespace shop.ApplicatonServices.Services
                .ToArrayAsync();
 
             var carId = await _context.Cars
-                .Include(x => x.ExistingFilePathsCar)
+                .Include(x => x.ExistingFilePaths)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             await _file.RemoveImages(photos);

@@ -23,32 +23,32 @@ namespace shop.ApplicatonServices.Services
             _context = context;
             _env = env;
         }
-        public async Task<ExistingFilePathCar> RemoveImage(ExistingFilePathCarDto dto)
+        public async Task<ExistingFilePath> RemoveImage(ExistingFilePathCarDto dto)
         {
-            var imageId = await _context.ExistingFilePathCar
+            var imageId = await _context.ExistingFilePath
                 .FirstOrDefaultAsync(x => x.FilePath == dto.FilePath);
 
             string photoPath = _env.WebRootPath + "\\multipleFileUpload\\" + dto.FilePath;
 
             File.Delete(photoPath);
 
-            _context.ExistingFilePathCar.Remove(imageId);
+            _context.ExistingFilePath.Remove(imageId);
             await _context.SaveChangesAsync();
 
             return imageId;
         }
-        public async Task<ExistingFilePathCar> RemoveImages(ExistingFilePathCarDto[] dto)
+        public async Task<ExistingFilePath> RemoveImages(ExistingFilePathCarDto[] dto)
         {
             foreach (var dtos in dto)
             {
-                var fileId = await _context.ExistingFilePathCar
+                var fileId = await _context.ExistingFilePath
                 .FirstOrDefaultAsync(x => x.FilePath == dtos.FilePath);
 
                 string photoPath = _env.WebRootPath + "\\multipleFileUpload\\" + dtos.FilePath;
 
                 File.Delete(photoPath);
 
-                _context.ExistingFilePathCar.Remove(fileId);
+                _context.ExistingFilePath.Remove(fileId);
                 await _context.SaveChangesAsync();
             }
 
@@ -72,13 +72,13 @@ namespace shop.ApplicatonServices.Services
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         photo.CopyTo(fileStream);
-                        ExistingFilePathCar paths = new ExistingFilePathCar
+                        ExistingFilePath paths = new ExistingFilePath
                         {
                             Id = Guid.NewGuid(),
                             FilePath = uniqueFileName,
                             CarId = cars.Id
                         };
-                        _context.ExistingFilePathCar.Add(paths);
+                        _context.ExistingFilePath.Add(paths);
                     }
                 }
             }
