@@ -49,9 +49,9 @@ else
                 </div>
             </div>
         </div>
-        @foreach (var images in Model.Image)
+        @foreach (var photo in Model.ExistingFilePaths)
         {
-            <partial name="_Images" model="images" />
+            <partial name="_Photo" model="photo" />
         }
 
         @if (Model.Id.HasValue)
