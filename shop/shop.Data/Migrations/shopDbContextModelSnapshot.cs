@@ -60,6 +60,9 @@ namespace shop.Data.Migrations
                     b.Property<Guid?>("CarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CarsId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -68,7 +71,7 @@ namespace shop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("CarsId");
 
                     b.HasIndex("ProductId");
 

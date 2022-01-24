@@ -10,5 +10,6 @@ namespace shop.Core.Domain
         public Guid? ProductId { get; set; }
         public Guid? CarId { get; set; }
 
+
     }
 }
