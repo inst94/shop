@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using shop.Core.Dtos;
 using shop.Core.ServiceInterface;
 using shop.Data;
@@ -69,8 +70,16 @@ namespace shop.Controllers
                 Price = model.Price,
                 Crew = model.Crew,
                 Constructed = model.Constructed,
-                ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
+                ModifiedAt = model.ModifiedAt,
+                Files = model.Files,
+                Image = model.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.Id,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    SpaceshipId = x.SpaceshipId
+                }).ToArray()
 
             };
             var result = await _spaceshipService.Add(dto);
@@ -88,6 +97,16 @@ namespace shop.Controllers
             {
                 return NotFound();
             }
+            var photos = await _context.FileToDatabase
+                .Where(x => x.SpaceshipId == id)
+                .Select(m => new ImagesViewModel
+                {
+                    ImageData = m.ImageData,
+                    Id = m.Id,
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(m.ImageData)),
+                    ImageTitle = m.ImageTitle,
+                    SpaceshipId = m.Id
+                }).ToArrayAsync();
 
             var model = new SpaceshipViewModel();
             model.Id = spaceship.Id;
@@ -99,6 +118,7 @@ namespace shop.Controllers
             model.Constructed = spaceship.Constructed;
             model.ModifiedAt = spaceship.ModifiedAt;
             model.CreatedAt = spaceship.CreatedAt;
+            model.Image.AddRange(photos);
 
             return View(model);
         }
@@ -114,8 +134,15 @@ namespace shop.Controllers
                 Price = model.Price,
                 Crew = model.Crew,
                 Constructed = model.Constructed,
-                ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
+                ModifiedAt = model.ModifiedAt,
+                Image = model.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.Id,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    SpaceshipId = x.SpaceshipId
+                })
             };
             var result = await _spaceshipService.Update(dto);
 

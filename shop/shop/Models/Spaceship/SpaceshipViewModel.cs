@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 
 namespace shop.Models.Spaceship
 {
@@ -13,5 +15,7 @@ namespace shop.Models.Spaceship
         public DateTime Constructed { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public List<ImagesViewModel> Image { get; set; } = new List<ImagesViewModel>();
     }
 }
