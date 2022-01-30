@@ -1,4 +1,4 @@
-﻿@model IEnumerable<shop.Models.Cars.CarListViewModel>
+﻿@model IEnumerable<shop.Models.Car.CarListViewModel>
 
 
 @{
@@ -20,19 +20,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var cars in Model)
+            @foreach (var car in Model)
             {
                 queueNumber++;
             <tr>
                 <td class="">@queueNumber</td>
-                <td class="">@cars.Mark</td>
-                <td class="">@cars.Model</td>
-                <td class="">@cars.Year</td>
-                <td class="">@cars.Price</td>
-                <td class="">@cars.Amount</td>
+                <td class="">@car.Mark</td>
+                <td class="">@car.Model</td>
+                <td class="">@car.Year</td>
+                <td class="">@car.Price</td>
+                <td class="">@car.Amount</td>
                 <td>
-                    <a asp-action="edit" asp-controller="car" asp-route-id="@cars.Id" class="btn btn-primary">Edit</a>
-                    <input asp-action="delete" asp-controller="car" asp-route-id="@cars.Id" type="submit" class="btn btn-danger" value="Delete" />
+                    <a asp-action="edit" asp-controller="car" asp-route-id="@car.Id" class="btn btn-primary">Edit</a>
+                    <input asp-action="delete" asp-controller="car" asp-route-id="@car.Id" type="submit" class="btn btn-danger" value="Delete" />
                 </td>
             </tr>
             }

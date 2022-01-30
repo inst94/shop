@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using shop.Models.Files;
+using System;
 using System.Collections.Generic;
 
-namespace shop.Core.Domain
+namespace shop.Models.Car
 {
-    public class Cars
+    public class CarViewModel
     {
         public Guid? Id { get; set; }
         public string Mark { get; set; }
@@ -13,5 +15,7 @@ namespace shop.Core.Domain
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public List<ImagesViewModel> Image { get; set; } = new List<ImagesViewModel>();
     }
 }

@@ -11,7 +11,7 @@ namespace shop.Data
 
         public DbSet<Product> Product { get; set; }
         public DbSet<ExistingFilePath> ExistingFilePath { get; set; }
-        public DbSet<Cars> Cars { get; set; }
+        public DbSet<Car> Car { get; set; }
         public DbSet<FileToDatabase> FileToDatabase { get; set; }
     }
 }

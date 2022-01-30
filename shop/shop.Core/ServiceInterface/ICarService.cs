@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace shop.Core.ServiceInterface
 {
-    public interface ICarService : IApplicatonService
+    public interface ICarService
     {
-        Task<Cars> Delete(Guid id);
-        Task<Cars> Add(CarDto dto);
-        Task<Cars> Edit(Guid id);
-        Task<Cars> Update(CarDto dto);
+        Task<Car> Delete(Guid id);
+        Task<Car> Add(CarDto dto);
+        Task<Car> Edit(Guid id);
+        Task<Car> Update(CarDto dto);
     }
 }

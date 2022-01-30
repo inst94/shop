@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace shop.Models.Cars
+namespace shop.Core.Domain
 {
-    public class CarListViewModel
+    public class Car
     {
+        [Key]
         public Guid? Id { get; set; }
         public string Mark { get; set; }
         public string Model { get; set; }
@@ -12,6 +14,5 @@ namespace shop.Models.Cars
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
-
     }
 }

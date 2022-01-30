@@ -28,7 +28,7 @@ namespace shop
                 options.UseSqlServer(_config["DefaultConnection"]));
 
             services.AddScoped<IProductService, ProductServices>();
-            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<ICarService, CarServices>();
             services.AddScoped<IFileService, FileServices>();
         }
 

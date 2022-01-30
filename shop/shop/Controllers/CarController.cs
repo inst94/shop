@@ -7,7 +7,7 @@ using shop.Core.ServiceInterface;
 using shop.Data;
 using shop.Models.Files;
 using Microsoft.EntityFrameworkCore;
-using shop.Models.Cars;
+using shop.Models.Car;
 
 namespace shop.Controllers
 {
@@ -24,10 +24,10 @@ namespace shop.Controllers
             _context = context;
             _carService = carService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
-            var result = _context.Cars
+            var result = _context.Car
                 .Select(x => new CarListViewModel
                 {
                     Id = x.Id,
@@ -36,7 +36,8 @@ namespace shop.Controllers
                     Amount = x.Amount,
                     Model = x.Model,
                     Year = x.Year,
-
+                    CreatedAt = x.CreatedAt,
+                    ModifiedAt = x.ModifiedAt
                 });
             return View(result);
         }
@@ -44,9 +45,9 @@ namespace shop.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var cars = await _carService.Delete(id);
+            var car = await _carService.Delete(id);
 
-            if (cars == null)
+            if (car == null)
             {
                 RedirectToAction(nameof(Index));
             }
@@ -90,39 +91,39 @@ namespace shop.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var cars = await _carService.Edit(id);
-            if (cars == null)
+            var car = await _carService.Edit(id);
+            if (car == null)
             {
                 return NotFound();
             }
 
             var photos = await _context.FileToDatabase
                .Where(x => x.CarId == id)
-               .Select(y => new ImagesViewModel
+               .Select(m => new ImagesViewModel
                {
-                   ImageData = y.ImageData,
-                   Id = y.Id,
-                   Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData)),
-                   ImageTitle = y.ImageTitle,
-                   CarId = y.Id
+                   ImageData = m.ImageData,
+                   Id = m.Id,
+                   Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(m.ImageData)),
+                   ImageTitle = m.ImageTitle,
+                   CarId = m.Id
                })
                .ToArrayAsync();
 
             var model = new CarViewModel();
 
-            model.Id = cars.Id;
-            model.Mark = cars.Mark;
-            model.Model = cars.Model;
-            model.Year = cars.Year;
-            model.Amount = cars.Amount;
-            model.Price = cars.Price;
-            model.ModifiedAt = cars.ModifiedAt;
-            model.CreatedAt = cars.CreatedAt;
+            model.Id = car.Id;
+            model.Mark = car.Mark;
+            model.Model = car.Model;
+            model.Year = car.Year;
+            model.Amount = car.Amount;
+            model.Price = car.Price;
+            model.ModifiedAt = car.ModifiedAt;
+            model.CreatedAt = car.CreatedAt;
             model.Image.AddRange(photos);
 
             return View(model);
@@ -140,7 +141,6 @@ namespace shop.Controllers
                 Price = mod.Price,
                 ModifiedAt = mod.ModifiedAt,
                 CreatedAt = mod.CreatedAt,
-                Files = mod.Files,
                 Image = mod.Image.Select(x => new FileToDatabaseDto
                 {
                     Id = x.Id,

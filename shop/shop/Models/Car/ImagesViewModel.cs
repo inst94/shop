@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace shop.Models.Cars
+namespace shop.Models.Car
 {
     public class ImagesViewModel
     {

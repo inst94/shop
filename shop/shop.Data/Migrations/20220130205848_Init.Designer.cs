@@ -10,8 +10,8 @@ using shop.Data;
 namespace shop.Data.Migrations
 {
     [DbContext(typeof(shopDbContext))]
-    [Migration("20220124103657_FileToDatabase")]
-    partial class FileToDatabase
+    [Migration("20220130205848_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
                 {
                     b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace shop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>

@@ -19,7 +19,7 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("shop.Core.Domain.Cars", b =>
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
                 {
                     b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace shop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>

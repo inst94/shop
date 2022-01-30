@@ -1,92 +1,90 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using shop.Core.Domain;
 using shop.Core.Dtos;
 using shop.Core.ServiceInterface;
 using shop.Data;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace shop.ApplicatonServices.Services
 {
-    public class CarService : ICarService
+    public class CarServices : ICarService
     {
         private readonly shopDbContext _context;
-        public CarService
+        public CarServices
             (
                 shopDbContext context
             )
         {
             _context = context;
         }
-        public async Task<Cars> Delete(Guid id)
+        public async Task<Car> Delete(Guid id)
         {
-            var carId = await _context.Cars
+            var car = await _context.Car
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            _context.Cars.Remove(carId);
+            _context.Car.Remove(car);
             await _context.SaveChangesAsync();
 
-            return carId;
+            return car;
         }
-        public async Task<Cars> Add(CarDto dto)
+        public async Task<Car> Add(CarDto dto)
         {
-            Cars cars = new Cars();
+            Car car = new Car();
             FileToDatabase file = new FileToDatabase();
 
-            cars.Id = Guid.NewGuid();
-            cars.Mark = dto.Mark;
-            cars.Model = dto.Model;
-            cars.Year = dto.Year;
-            cars.Amount = dto.Amount;
-            cars.Price = dto.Price;
-            cars.ModifiedAt = DateTime.Now;
-            cars.CreatedAt = DateTime.Now;
+            car.Id = Guid.NewGuid();
+            car.Mark = dto.Mark;
+            car.Model = dto.Model;
+            car.Year = dto.Year;
+            car.Amount = dto.Amount;
+            car.Price = dto.Price;
+            car.ModifiedAt = DateTime.Now;
+            car.CreatedAt = DateTime.Now;
 
             if (dto.Files != null)
             {
-                file.ImageData = UploadFile(dto, cars);
+                file.ImageData = UploadFile(dto, car);
             }
 
-            await _context.Cars.AddAsync(cars);
+            await _context.Car.AddAsync(car);
             await _context.SaveChangesAsync();
 
-            return cars;
+            return car;
         }
-        public async Task<Cars> Edit(Guid id)
+        public async Task<Car> Edit(Guid id)
         {
-            var result = await _context.Cars
+            var result = await _context.Car
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
         }
-        public async Task<Cars> Update(CarDto dto)
+        public async Task<Car> Update(CarDto dto)
         {
-            Cars cars = new Cars();
+            Car car = new Car();
             FileToDatabase file = new FileToDatabase();
 
-            cars.Id = dto.Id;
-            cars.Mark = dto.Mark;
-            cars.Model = dto.Model;
-            cars.Year = dto.Year;
-            cars.Amount = dto.Amount;
-            cars.Price = dto.Price;
-            cars.ModifiedAt = dto.ModifiedAt;
-            cars.CreatedAt = dto.CreatedAt;
+            car.Id = dto.Id;
+            car.Mark = dto.Mark;
+            car.Model = dto.Model;
+            car.Year = dto.Year;
+            car.Amount = dto.Amount;
+            car.Price = dto.Price;
+            car.ModifiedAt = dto.ModifiedAt;
+            car.CreatedAt = dto.CreatedAt;
 
             if (dto.Files != null)
             {
-                file.ImageData = UploadFile(dto, cars);
+                file.ImageData = UploadFile(dto, car);
             }
 
-            _context.Cars.Update(cars);
+            _context.Car.Update(car);
             await _context.SaveChangesAsync();
 
-            return cars;
+            return car;
         }
-        public byte[] UploadFile(CarDto dto, Cars cars)
+        public byte[] UploadFile(CarDto dto, Car car)
         {
 
             if (dto.Files != null && dto.Files.Count > 0)
@@ -99,7 +97,7 @@ namespace shop.ApplicatonServices.Services
                         {
                             Id = Guid.NewGuid(),
                             ImageTitle = photo.FileName,
-                            CarId = cars.Id
+                            CarId = car.Id
                         };
 
                         photo.CopyTo(target);
