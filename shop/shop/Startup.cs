@@ -29,7 +29,7 @@ namespace shop
 
             services.AddScoped<IProductService, ProductServices>();
             services.AddScoped<ICarService, CarService>();
-            services.AddScoped<IFileService, CarFileServices>();
+            services.AddScoped<IFileService, FileServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

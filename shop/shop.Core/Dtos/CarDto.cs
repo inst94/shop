@@ -15,6 +15,6 @@ namespace shop.Core.Dtos
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public List<IFormFile> Files { get; set; }
-        public IEnumerable<ExistingFilePathCarDto> ExistingFilePathsCar { get; set; } = new List<ExistingFilePathCarDto>();
+        public IEnumerable<FileToDatabaseDto> Image { get; set; } = new List<FileToDatabaseDto>();
     }
 }

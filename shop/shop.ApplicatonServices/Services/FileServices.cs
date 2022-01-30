@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace shop.ApplicatonServices.Services
 {
-    public class CarFileServices : IFileService
+    public class FileServices : IFileService
     {
         private readonly shopDbContext _context;
         private readonly IWebHostEnvironment _env;
-        public CarFileServices
+        public FileServices
             (
                 shopDbContext context,
                 IWebHostEnvironment env
@@ -23,7 +23,7 @@ namespace shop.ApplicatonServices.Services
             _context = context;
             _env = env;
         }
-        public async Task<ExistingFilePath> RemoveImage(ExistingFilePathCarDto dto)
+        public async Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto)
         {
             var imageId = await _context.ExistingFilePath
                 .FirstOrDefaultAsync(x => x.FilePath == dto.FilePath);
@@ -37,7 +37,7 @@ namespace shop.ApplicatonServices.Services
 
             return imageId;
         }
-        public async Task<ExistingFilePath> RemoveImages(ExistingFilePathCarDto[] dto)
+        public async Task<ExistingFilePath> RemoveImages(ExistingFilePathDto[] dto)
         {
             foreach (var dtos in dto)
             {
@@ -54,7 +54,7 @@ namespace shop.ApplicatonServices.Services
 
             return null;
         }
-        public string ProcessUploadedFile(CarDto dto, Cars cars)
+        public string ProcessUploadedFile(ProductDto dto, Product product)
         {
             string uniqueFileName = null;
             if (dto.Files != null && dto.Files.Count > 0)
@@ -76,7 +76,7 @@ namespace shop.ApplicatonServices.Services
                         {
                             Id = Guid.NewGuid(),
                             FilePath = uniqueFileName,
-                            CarId = cars.Id
+                            ProductId = product.Id
                         };
                         _context.ExistingFilePath.Add(paths);
                     }

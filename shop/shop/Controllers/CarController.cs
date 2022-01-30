@@ -15,17 +15,14 @@ namespace shop.Controllers
     {
         private readonly shopDbContext _context;
         private readonly ICarService _carService;
-        private readonly IFileService _file;
         public CarController
             (
                 shopDbContext context,
-                ICarService carService,
-                IFileService file
+                ICarService carService
             )
         {
             _context = context;
             _carService = carService;
-            _file = file;
         }
 
         public IActionResult Index()
@@ -78,13 +75,13 @@ namespace shop.Controllers
                 ModifiedAt = mod.ModifiedAt,
                 CreatedAt = mod.CreatedAt,
                 Files = mod.Files,
-                ExistingFilePathsCar = mod.ExistingFilePaths
-                    .Select(x => new ExistingFilePathCarDto
-                    {
-                        PhotoId = x.PhotoId,
-                        FilePath = x.FilePath,
-                        CarId = x.CarId
-                    }).ToArray()
+                Image = mod.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.Id,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    CarId = x.CarId
+                }).ToArray()
             };
 
             var result = await _carService.Add(dto);
@@ -104,12 +101,15 @@ namespace shop.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.ExistingFilePath
+            var photos = await _context.FileToDatabase
                .Where(x => x.CarId == id)
-               .Select(y => new ExistingFilePathCarViewModel
+               .Select(y => new ImagesViewModel
                {
-                   FilePath = y.FilePath,
-                   PhotoId = y.Id
+                   ImageData = y.ImageData,
+                   Id = y.Id,
+                   Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData)),
+                   ImageTitle = y.ImageTitle,
+                   CarId = y.Id
                })
                .ToArrayAsync();
 
@@ -123,7 +123,7 @@ namespace shop.Controllers
             model.Price = cars.Price;
             model.ModifiedAt = cars.ModifiedAt;
             model.CreatedAt = cars.CreatedAt;
-            model.ExistingFilePaths.AddRange(photos);
+            model.Image.AddRange(photos);
 
             return View(model);
         }
@@ -141,13 +141,13 @@ namespace shop.Controllers
                 ModifiedAt = mod.ModifiedAt,
                 CreatedAt = mod.CreatedAt,
                 Files = mod.Files,
-                ExistingFilePathsCar = mod.ExistingFilePaths
-                    .Select(x => new ExistingFilePathCarDto
-                    {
-                        PhotoId = x.PhotoId,
-                        FilePath = x.FilePath,
-                        CarId = x.CarId
-                    }).ToArray()
+                Image = mod.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.Id,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    CarId = x.CarId
+                })
             };
             var result = await _carService.Update(dto);
 
@@ -157,22 +157,6 @@ namespace shop.Controllers
             }
 
             return RedirectToAction(nameof(Index), mod);
-        }
-        [HttpPost]
-        public async Task<IActionResult> RemoveImage(ExistingFilePathCarViewModel model)
-        {
-            var dto = new ExistingFilePathCarDto()
-            {
-                FilePath = model.FilePath
-            };
-
-            var image = await _file.RemoveImage(dto);
-            if (image == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return RedirectToAction(nameof(Index));
         }
     }
 }

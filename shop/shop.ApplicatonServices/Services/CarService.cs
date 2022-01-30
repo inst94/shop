@@ -14,33 +14,18 @@ namespace shop.ApplicatonServices.Services
     public class CarService : ICarService
     {
         private readonly shopDbContext _context;
-        private readonly IFileService _file;
         public CarService
             (
-                shopDbContext context,
-                IFileService file
+                shopDbContext context
             )
         {
             _context = context;
-            _file = file;
         }
         public async Task<Cars> Delete(Guid id)
         {
-            var photos = await _context.ExistingFilePath
-               .Where(x => x.CarId == id)
-               .Select(y => new ExistingFilePathCarDto
-               {
-                   CarId = y.CarId,
-                   FilePath = y.FilePath,
-                   PhotoId = y.Id
-               })
-               .ToArrayAsync();
-
             var carId = await _context.Cars
-                .Include(x => x.ExistingFilePaths)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            await _file.RemoveImages(photos);
             _context.Cars.Remove(carId);
             await _context.SaveChangesAsync();
 
@@ -49,6 +34,7 @@ namespace shop.ApplicatonServices.Services
         public async Task<Cars> Add(CarDto dto)
         {
             Cars cars = new Cars();
+            FileToDatabase file = new FileToDatabase();
 
             cars.Id = Guid.NewGuid();
             cars.Mark = dto.Mark;
@@ -58,7 +44,11 @@ namespace shop.ApplicatonServices.Services
             cars.Price = dto.Price;
             cars.ModifiedAt = DateTime.Now;
             cars.CreatedAt = DateTime.Now;
-            _file.ProcessUploadedFile(dto, cars);
+
+            if (dto.Files != null)
+            {
+                file.ImageData = UploadFile(dto, cars);
+            }
 
             await _context.Cars.AddAsync(cars);
             await _context.SaveChangesAsync();
@@ -75,6 +65,7 @@ namespace shop.ApplicatonServices.Services
         public async Task<Cars> Update(CarDto dto)
         {
             Cars cars = new Cars();
+            FileToDatabase file = new FileToDatabase();
 
             cars.Id = dto.Id;
             cars.Mark = dto.Mark;
@@ -84,12 +75,41 @@ namespace shop.ApplicatonServices.Services
             cars.Price = dto.Price;
             cars.ModifiedAt = dto.ModifiedAt;
             cars.CreatedAt = dto.CreatedAt;
-            _file.ProcessUploadedFile(dto, cars);
+
+            if (dto.Files != null)
+            {
+                file.ImageData = UploadFile(dto, cars);
+            }
 
             _context.Cars.Update(cars);
             await _context.SaveChangesAsync();
 
             return cars;
+        }
+        public byte[] UploadFile(CarDto dto, Cars cars)
+        {
+
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                foreach (var photo in dto.Files)
+                {
+                    using (var target = new MemoryStream())
+                    {
+                        FileToDatabase files = new FileToDatabase
+                        {
+                            Id = Guid.NewGuid(),
+                            ImageTitle = photo.FileName,
+                            CarId = cars.Id
+                        };
+
+                        photo.CopyTo(target);
+                        files.ImageData = target.ToArray();
+
+                        _context.FileToDatabase.Add(files);
+                    }
+                }
+            }
+            return null;
         }
     }
 }

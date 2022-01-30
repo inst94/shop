@@ -6,8 +6,8 @@ namespace shop.Core.ServiceInterface
 {
     public interface IFileService : IApplicatonService
     {
-        string ProcessUploadedFile(CarDto dto, Cars cars);
-        Task<ExistingFilePath> RemoveImage(ExistingFilePathCarDto dto);
-        Task<ExistingFilePath> RemoveImages(ExistingFilePathCarDto[] dto);
+        string ProcessUploadedFile(ProductDto dto, Product product);
+        Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto);
+        Task<ExistingFilePath> RemoveImages(ExistingFilePathDto[] dto);
     }
 }
