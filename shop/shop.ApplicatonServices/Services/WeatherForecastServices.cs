@@ -12,10 +12,11 @@ namespace shop.ApplicatonServices.Services
     {
         public async Task<WeatherDto>WeatherResponse ()
         {
-            string idWeather = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
+            string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
+            var locationKey = "127964";
             //connection string
-            var client = new RestClient($"http://www.accuweather.com/et/ee/tallinn/127964/daily-weather-forecast/127964?lang=et-et");
-            var client1 = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&language=et-et&details=false&metric=false");
+            var client = new RestClient($"http://www.accuweather.com/et/ee/tallinn/{locationKey}/daily-weather-forecast/{locationKey}?lang=et-et");
+            var client1 = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{locationKey}?apikey={apikey}&language=et-et&details=false&metric=false");
 
             return null;
         }
