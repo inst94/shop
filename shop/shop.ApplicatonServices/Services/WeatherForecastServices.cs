@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace shop.ApplicatonServices.Services
 {
-    public class WeatherForecastServices : IWeatherForecastServices
+    public class WeatherForecastServices
     {
-        public string WeatherResponse(string city)
+        public async Task<WeatherDto> WeatherResponse ()
         {
             string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
             var locationKey = "127964";
