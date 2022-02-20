@@ -16,24 +16,24 @@ namespace shop.Controllers
             _weatherForecastServices = weatherForecastServices;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult SearchCity()
         {
             SearchCity vm = new SearchCity();
             return View(vm);
         }
         [HttpPost]
-        public IActionResult City(SearchCity model)
+        public IActionResult SearchCity(SearchCity model)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("City", "Weather", new { city = model.CityName});
             }
             return View(model);
         }
-        public IActionResult SearchCity(string city)
+        public IActionResult City(string city)
         {
-            var weatherResponse = _weatherForecastServices.WeatherResponse(city);
-            WatherResultViewModel model = new WatherResultViewModel();
+            var weatherResponse = _weatherForecastServices.GetResponse(city);
+            CityViewModel model = new CityViewModel();
             WeatherResultDto dto = new WeatherResultDto();
             HeadlineDto headlineDto = new HeadlineDto();
             if (weatherResponse != null)

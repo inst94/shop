@@ -19,12 +19,15 @@ namespace shop.ApplicatonServices.Services
             string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
             var locationKey = "127964";
             //connection string
-            var url = $"http://www.accuweather.com/et/ee/tallinn/{locationKey}/daily-weather-forecast/{locationKey}?lang=et-et";
-            //var client2 = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{locationKey}?apikey={apikey}&language=et-et&details=false&metric=false");
+            //var url = $"http://www.accuweather.com/et/ee/tallinn/{locationKey}/daily-weather-forecast/{locationKey}?lang=et-et";
+            var url2 = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{locationKey}?apikey={apikey}&language=et-et&details=false&metric=false");
+
+            var request = new RestRequest(Method.GET);
+            IRestRequest
 
             using (WebClient client = new WebClient())
             {
-                string json = client.DownloadString(url);
+                string json = client.DownloadString(url2);
                 DailyForecastDto weatherInfo = (new JavaScriptSerializer()).Deserialize<DailyForecastDto>(json);
                 HeadlineDto headlineInfo = (new JavaScriptSerializer()).Deserialize<HeadlineDto>(json);
                 WeatherResultDto result = new WeatherResultDto();
