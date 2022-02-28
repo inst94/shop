@@ -114,7 +114,7 @@ namespace shop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("Prise")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Type")

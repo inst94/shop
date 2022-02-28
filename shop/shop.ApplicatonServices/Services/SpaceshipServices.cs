@@ -44,7 +44,7 @@ namespace shop.ApplicatonServices.Services
             spaceship.Name = dto.Name;
             spaceship.Type = dto.Type;
             spaceship.Mass = dto.Mass;
-            spaceship.Price = dto.Price;
+            spaceship.Prise = dto.Prise;
             spaceship.Crew = dto.Crew;
             spaceship.Constructed = DateTime.Now;
             spaceship.ModifiedAt = DateTime.Now;
@@ -77,7 +77,7 @@ namespace shop.ApplicatonServices.Services
             spaceship.Name = dto.Name;
             spaceship.Type = dto.Type;
             spaceship.Mass = dto.Mass;
-            spaceship.Price = dto.Price;
+            spaceship.Prise = dto.Prise;
             spaceship.Crew = dto.Crew;
             spaceship.Constructed = dto.Constructed;
             spaceship.ModifiedAt = dto.ModifiedAt;

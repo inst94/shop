@@ -10,7 +10,7 @@ namespace shop.Controllers
         private readonly IWeatherForecastServices _weatherForecastServices;
         public WeatherController
             (
-            IWeatherForecastServices weatherForecastServices
+                IWeatherForecastServices weatherForecastServices
             )
         {
             _weatherForecastServices = weatherForecastServices;

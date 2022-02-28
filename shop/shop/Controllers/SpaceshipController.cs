@@ -34,7 +34,7 @@ namespace shop.Controllers
                     Name = x.Name,
                     Type = x.Type,
                     Mass = x.Mass,
-                    Price = x.Price,
+                    Prise = x.Prise,
                     Crew = x.Crew,
 
                 });
@@ -67,7 +67,7 @@ namespace shop.Controllers
                 Type = model.Type,
                 Name = model.Name,
                 Mass = model.Mass,
-                Price = model.Price,
+                Prise = model.Prise,
                 Crew = model.Crew,
                 Constructed = model.Constructed,
                 CreatedAt = model.CreatedAt,
@@ -113,7 +113,7 @@ namespace shop.Controllers
             model.Type = spaceship.Type;
             model.Name = spaceship.Name;
             model.Mass = spaceship.Mass;
-            model.Price = spaceship.Price;
+            model.Prise = spaceship.Prise;
             model.Crew = spaceship.Crew;
             model.Constructed = spaceship.Constructed;
             model.ModifiedAt = spaceship.ModifiedAt;
@@ -131,7 +131,7 @@ namespace shop.Controllers
                 Type = model.Type,
                 Name = model.Name,
                 Mass = model.Mass,
-                Price = model.Price,
+                Prise = model.Prise,
                 Crew = model.Crew,
                 Constructed = model.Constructed,
                 CreatedAt = model.CreatedAt,

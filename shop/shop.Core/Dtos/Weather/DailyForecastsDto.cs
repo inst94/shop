@@ -3,7 +3,7 @@ using System;
 
 namespace shop.Core.Dtos.Weather
 {
-    public class DailyForecastDto
+    public class DailyForecastsDto
     {
         [JsonProperty("Date")]
         public string Date {get; set;}
@@ -20,11 +20,5 @@ namespace shop.Core.Dtos.Weather
         public AirAndPollenDto AirAndPollen { get; set; }
         public DayDto Day {get; set; }
         public NightDto Night { get; set; }
-        [JsonProperty("Sources")]
-        public string Sources { get; set; }
-        [JsonProperty("MobileLink")]
-        public string MobileLink { get; set; }
-        [JsonProperty("Link")]
-        public string Link { get; set; }
     }
 }

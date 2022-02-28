@@ -13,8 +13,7 @@ namespace shop.ApplicatonServices.Services
             //string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
             //var locationKey = "127964";
             //connection string
-            //var url = $"http://www.accuweather.com/et/ee/tallinn/127964/daily-weather-forecast/127964?lang=et-et";
-            var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&language=et-et&details=false&metric=false";
+            var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&metric=true";
 
             using (WebClient client = new WebClient())
             {

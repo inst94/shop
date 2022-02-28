@@ -43,5 +43,11 @@ namespace shop.Core.Dtos.Weather
         public int CloudCover { get; set; }
         public EvapotranspirationDto Evapotranspiration { get; set; }
         public SolarIrradianceDto SolarIrradiance { get; set; }
+        [JsonProperty("Source")]
+        public string Source { get; set; }
+        [JsonProperty("MobileLink")]
+        public string MobileLink { get; set; }
+        [JsonProperty("Link")]
+        public string Link { get; set; }
     }
 }
