@@ -35,19 +35,19 @@ namespace shop.Controllers
         {
             WeatherResultDto dto = new WeatherResultDto();
 
-            var weatherResponse = _weatherForecastServices.WeatherDetail(dto);
+            _weatherForecastServices.WeatherDetail(dto);
 
             CityViewModel model = new CityViewModel();
 
-                model.EffectiveDate = weatherResponse.Result.EffectiveDate;
-                model.EffectiveEpochDate = weatherResponse.Result.EffectiveEpochDate;
-                model.Severity = weatherResponse.Result.Severity;
-                model.Text = weatherResponse.Result.Text;
-                model.Category = weatherResponse.Result.Category;
-                model.EndDate = weatherResponse.Result.EndDate;
-                model.EndEpochDate = weatherResponse.Result.EndEpochDate;
-                model.MobileLink = weatherResponse.Result.MobileLink;
-                model.Link = weatherResponse.Result.Link;
+            model.EffectiveDate = dto.EffectiveDate;
+            model.EffectiveEpochDate = dto.EffectiveEpochDate;
+            model.Severity = dto.Severity;
+            model.Text = dto.Text;
+            model.Category = dto.Category;
+            model.EndDate = dto.EndDate;
+            model.EndEpochDate = dto.EndEpochDate;
+            model.MobileLink = dto.MobileLink;
+            model.Link = dto.Link;
 
             model.Date = dto.Date;
             model.EpochDate = dto.EpochDate;

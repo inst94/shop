@@ -1,15 +1,7 @@
 ﻿using Nancy.Json;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
-using shop.Core.Dtos;
 using shop.Core.Dtos.Weather;
 using shop.Core.ServiceInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace shop.ApplicatonServices.Services
@@ -18,8 +10,8 @@ namespace shop.ApplicatonServices.Services
     {
         public async Task<WeatherResultDto> WeatherDetail(WeatherResultDto dto)
         {
-            string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
-            var locationKey = "127964";
+            //string apikey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
+            //var locationKey = "127964";
             //connection string
             //var url = $"http://www.accuweather.com/et/ee/tallinn/127964/daily-weather-forecast/127964?lang=et-et";
             var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&language=et-et&details=false&metric=false";
@@ -64,25 +56,6 @@ namespace shop.ApplicatonServices.Services
             }
             return dto;
         }
-        WeatherResultDto IWeatherForecastServices.GetForecast(string city)
-        {
-            string appKey = "4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX";
-            // Connection String
-            var client = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&language=et-et&details=false&metric=false");
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-
-            if (response.IsSuccessful)
-            {
-                // Deserialize the string content into JToken object
-                var content = JsonConvert.DeserializeObject<JToken>(response.Content);
-
-                // Deserialize the JToken object into our WeatherResponse Class
-                return content.ToObject<WeatherResultDto>();
-            }
-            return null;
-        }
     }
 
-}
 }
