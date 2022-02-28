@@ -31,6 +31,5 @@ namespace shop.Models.Weather
         public bool NightHasPrecipitation { get; set; }
         public string NightPrecipitationType { get; set; }
         public string NightPrecipitationIntensity { get; set; }
-        public string Sources { get; set; }
     }
 }

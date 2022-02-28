@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,6 @@ namespace shop.Core.Dtos.Weather
         public bool NightHasPrecipitation { get; set; }
         public string NightPrecipitationType { get; set; }
         public string NightPrecipitationIntensity { get; set; }
-        public string Sources { get; set; }
 
     }
 }
