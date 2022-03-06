@@ -1,0 +1,93 @@
+﻿@model shop.Models.OpenWeather.OpenCityViewModel
+
+<h1>City</h1>
+
+<div class="container">
+    <div class="form-group col-md-3">
+        <h2>Forecast for the selected city</h2>
+        <label asp-for="CoordLon"></label>
+        <span class="badge">@Model.CoordLon</span>
+        <br />
+        <label asp-for="CoordLat"></label>
+        <span class="badge">@Model.CoordLat</span>
+        <br />
+        <label asp-for="WeatherId"></label>
+        <span class="badge">@Model.WeatherId</span>
+        <br />
+        <label asp-for="WeatherMain"></label>
+        <span class="badge">@Model.WeatherMain</span>
+        <br />
+        <label asp-for="WeatherDescription"></label>
+        <span class="badge">@Model.WeatherDescription</span>
+        <br />
+        <label asp-for="WeatherIcon"></label>
+        <span class="badge">@Model.WeatherIcon</span>
+        <br />
+        <label asp-for="Base"></label>
+        <span class="badge">@Model.Base</span>
+        <br />
+        <label asp-for="MainTemp"></label>
+        <span class="badge">@Model.MainTemp</span>
+        <br />
+        <label asp-for="MainFeels_Like"></label>
+        <span class="badge">@Model.MainFeels_Like</span>
+        <br />
+        <label asp-for="MainTemp_Min"></label>
+        <span class="badge">@Model.MainTemp_Min</span>
+        <br />
+        <label asp-for="MainTemp_Max"></label>
+        <span class="badge">@Model.MainTemp_Max</span>
+        <br />
+        <label asp-for="MainPressure"></label>
+        <span class="badge">@Model.MainPressure</span>
+        <br />
+        <label asp-for="MainHumidity"></label>
+        <span class="badge">@Model.MainHumidity</span>
+        <br />
+        <label asp-for="Visibility"></label>
+        <span class="badge">@Model.Visibility</span>
+        <br />
+        <label asp-for="WindSpeed"></label>
+        <span class="badge">@Model.WindSpeed</span>
+        <br />
+        <label asp-for="WindDeg"></label>
+        <span class="badge">@Model.WindDeg</span>
+        <br />
+        <label asp-for="CloudsAll"></label>
+        <span class="badge">@Model.CloudsAll</span>
+        <br />
+        <label asp-for="Dt"></label>
+        <span class="badge">@Model.Dt</span>
+        <br />
+        <label asp-for="SysType"></label>
+        <span class="badge">@Model.SysType</span>
+        <br />
+        <label asp-for="SysId"></label>
+        <span class="badge">@Model.SysId</span>
+        <br />
+        <label asp-for="SysMessage"></label>
+        <span class="badge">@Model.SysMessage</span>
+        <br />
+        <label asp-for="SysCountry"></label>
+        <span class="badge">@Model.SysCountry</span>
+        <br />
+        <label asp-for="SysSunrise"></label>
+        <span class="badge">@Model.SysSunrise</span>
+        <br />
+        <label asp-for="SysSunset"></label>
+        <span class="badge">@Model.SysSunset</span>
+        <br />
+        <label asp-for="Timezone"></label>
+        <span class="badge">@Model.Timezone</span>
+        <br />
+        <label asp-for="Id"></label>
+        <span class="badge">@Model.Id</span>
+        <br />
+        <label asp-for="Name"></label>
+        <span class="badge">@Model.Name</span>
+        <br />
+        <label asp-for="Cod"></label>
+        <span class="badge">@Model.Cod</span>
+        <br />
+    </div>
+</div>
