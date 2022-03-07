@@ -18,66 +18,66 @@ namespace shop.Controllers
         [HttpGet]
         public IActionResult OpenSearchCity()
         {
-            OpenSearchCity vm = new OpenSearchCity();
-            return View(vm);
+            OpenSearchCity vm1 = new OpenSearchCity();
+            return View(vm1);
         }
         [HttpPost]
-        public IActionResult OpenSearchCity(OpenSearchCity model)
+        public IActionResult OpenSearchCity(OpenSearchCity model1)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("City", "Weather", new { opencity = model.OpenCityName });
+                return RedirectToAction("OpenCity", "OpenWeather", new { opencity = model1.OpenCityName });
             }
-            return View(model);
+            return View(model1);
         }
         [HttpGet]
         public IActionResult OpenCity(string opencity)
         {
-            OpenWeatherResultDto dto = new OpenWeatherResultDto();
+            OpenWeatherResultDto dto1 = new OpenWeatherResultDto();
 
-            _openweatherForecastServices.OpenWeatherDetail(dto);
+            _openweatherForecastServices.OpenWeatherDetail(dto1);
 
-            OpenCityViewModel model = new OpenCityViewModel();
+            OpenCityViewModel model1 = new OpenCityViewModel();
 
-            model.CoordLon = dto.CoordLon;
-            model.CoordLat = dto.CoordLat;
+            model1.CoordLon = dto1.CoordLon;
+            model1.CoordLat = dto1.CoordLat;
 
-            model.WeatherId = dto.WeatherId;
-            model.WeatherMain = dto.WeatherMain;
-            model.WeatherDescription = dto.WeatherDescription;
-            model.WeatherIcon = dto.WeatherIcon;
+            model1.WeatherId = dto1.WeatherId;
+            model1.WeatherMain = dto1.WeatherMain;
+            model1.WeatherDescription = dto1.WeatherDescription;
+            model1.WeatherIcon = dto1.WeatherIcon;
 
-            model.Base = dto.Base;
+            model1.Base = dto1.Base;
 
-            model.MainTemp = dto.MainTemp;
-            model.MainFeels_Like = dto.MainFeels_Like;
-            model.MainTemp_Min = dto.MainTemp_Min;
-            model.MainTemp_Max = dto.MainTemp_Max;
-            model.MainPressure = dto.MainPressure;
-            model.MainHumidity = dto.MainHumidity;
+            model1.MainTemp = dto1.MainTemp;
+            model1.MainFeels_Like = dto1.MainFeels_Like;
+            model1.MainTemp_Min = dto1.MainTemp_Min;
+            model1.MainTemp_Max = dto1.MainTemp_Max;
+            model1.MainPressure = dto1.MainPressure;
+            model1.MainHumidity = dto1.MainHumidity;
 
-            model.Visibility = dto.Visibility;
+            model1.Visibility = dto1.Visibility;
 
-            model.WindSpeed = dto.WindSpeed;
-            model.WindDeg = dto.WindDeg;
+            model1.WindSpeed = dto1.WindSpeed;
+            model1.WindDeg = dto1.WindDeg;
 
-            model.CloudsAll = dto.CloudsAll;
+            model1.CloudsAll = dto1.CloudsAll;
 
-            model.Dt = dto.Dt;
+            model1.Dt = dto1.Dt;
 
-            model.SysType = dto.SysType;
-            model.SysId = dto.SysId;
-            model.SysMessage = dto.SysMessage;
-            model.SysCountry = dto.SysCountry;
-            model.SysSunrise = dto.SysSunrise;
-            model.SysSunset = dto.SysSunset;
+            model1.SysType = dto1.SysType;
+            model1.SysId = dto1.SysId;
+            model1.SysMessage = dto1.SysMessage;
+            model1.SysCountry = dto1.SysCountry;
+            model1.SysSunrise = dto1.SysSunrise;
+            model1.SysSunset = dto1.SysSunset;
 
-            model.Timezone = dto.Timezone;
-            model.Id = dto.Id;
-            model.Name = dto.Name;
-            model.Cod = dto.Cod;
+            model1.Timezone = dto1.Timezone;
+            model1.Id = dto1.Id;
+            model1.Name = dto1.Name;
+            model1.Cod = dto1.Cod;
 
-            return View(model);
+            return View(model1);
         }
     }
 }

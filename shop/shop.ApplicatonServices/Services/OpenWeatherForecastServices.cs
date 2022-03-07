@@ -8,56 +8,56 @@ namespace shop.ApplicatonServices.Services
 {
     public class OpenWeatherForecastServices : IOpenWeatherForecastServices
     {
-        public async Task<OpenWeatherResultDto> OpenWeatherDetail(OpenWeatherResultDto dto)
+        public async Task<OpenWeatherResultDto> OpenWeatherDetail(OpenWeatherResultDto dto1)
         {
             var open_url = $"https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=d38a59db9ef99824a6462860f9a4dee3";
 
-            using (WebClient client = new WebClient())
+            using (WebClient client1 = new WebClient())
             {
-                string json = client.DownloadString(open_url);
-                OpenWeatherRootDto openweatherInfo = (new JavaScriptSerializer()).Deserialize<OpenWeatherRootDto>(json);
+                string json1 = client1.DownloadString(open_url);
+                OpenWeatherRootDto openweatherInfo = (new JavaScriptSerializer()).Deserialize<OpenWeatherRootDto>(json1);
 
-                dto.CoordLon = openweatherInfo.Coord.Lon;
-                dto.CoordLat = openweatherInfo.Coord.Lat;
+                dto1.CoordLon = openweatherInfo.Coord.Lon;
+                dto1.CoordLat = openweatherInfo.Coord.Lat;
 
-                dto.WeatherId = openweatherInfo.Weather[0].Id;
-                dto.WeatherMain = openweatherInfo.Weather[0].Main;
-                dto.WeatherDescription = openweatherInfo.Weather[0].Description;
-                dto.WeatherIcon = openweatherInfo.Weather[0].Icon;
+                dto1.WeatherId = openweatherInfo.Weather[0].Id;
+                dto1.WeatherMain = openweatherInfo.Weather[0].Main;
+                dto1.WeatherDescription = openweatherInfo.Weather[0].Description;
+                dto1.WeatherIcon = openweatherInfo.Weather[0].Icon;
 
-                dto.Base = openweatherInfo.Base;
+                dto1.Base = openweatherInfo.Base;
 
-                dto.MainTemp = openweatherInfo.Main.Temp;
-                dto.MainFeels_Like = openweatherInfo.Main.Feels_like;
-                dto.MainTemp_Min = openweatherInfo.Main.Temp_min;
-                dto.MainTemp_Max = openweatherInfo.Main.Temp_max;
-                dto.MainPressure = openweatherInfo.Main.Pressure;
-                dto.MainHumidity = openweatherInfo.Main.Humidity;
+                dto1.MainTemp = openweatherInfo.Main.Temp;
+                dto1.MainFeels_Like = openweatherInfo.Main.Feels_like;
+                dto1.MainTemp_Min = openweatherInfo.Main.Temp_min;
+                dto1.MainTemp_Max = openweatherInfo.Main.Temp_max;
+                dto1.MainPressure = openweatherInfo.Main.Pressure;
+                dto1.MainHumidity = openweatherInfo.Main.Humidity;
 
-                dto.Visibility = openweatherInfo.Visibility;
+                dto1.Visibility = openweatherInfo.Visibility;
 
-                dto.WindSpeed = openweatherInfo.Wind.Speed;
-                dto.WindDeg = openweatherInfo.Wind.Deg;
+                dto1.WindSpeed = openweatherInfo.Wind.Speed;
+                dto1.WindDeg = openweatherInfo.Wind.Deg;
 
-                dto.CloudsAll = openweatherInfo.Clouds.All;
+                dto1.CloudsAll = openweatherInfo.Clouds.All;
 
-                dto.Dt = openweatherInfo.Dt;
+                dto1.Dt = openweatherInfo.Dt;
 
-                dto.SysType = openweatherInfo.Sys.Type;
-                dto.SysId = openweatherInfo.Sys.Id;
-                dto.SysMessage = openweatherInfo.Sys.Message;
-                dto.SysCountry = openweatherInfo.Sys.Country;
-                dto.SysSunrise = openweatherInfo.Sys.Sunrise;
-                dto.SysSunset = openweatherInfo.Sys.Sunset;
+                dto1.SysType = openweatherInfo.Sys.Type;
+                dto1.SysId = openweatherInfo.Sys.Id;
+                dto1.SysMessage = openweatherInfo.Sys.Message;
+                dto1.SysCountry = openweatherInfo.Sys.Country;
+                dto1.SysSunrise = openweatherInfo.Sys.Sunrise;
+                dto1.SysSunset = openweatherInfo.Sys.Sunset;
 
-                dto.Timezone = openweatherInfo.Timezone;
-                dto.Id = openweatherInfo.Id;
-                dto.Name = openweatherInfo.Name;
-                dto.Cod = openweatherInfo.Cod;
+                dto1.Timezone = openweatherInfo.Timezone;
+                dto1.Id = openweatherInfo.Id;
+                dto1.Name = openweatherInfo.Name;
+                dto1.Cod = openweatherInfo.Cod;
 
-                var jsonString = new JavaScriptSerializer().Serialize(dto);
+                var jsonString1 = new JavaScriptSerializer().Serialize(dto1);
             }
-            return dto;
+            return dto1;
         }
     }
 }
