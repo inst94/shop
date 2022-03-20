@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using shop.Core.Dtos;
 using shop.Core.ServiceInterface;
 using shop.Data;
@@ -15,15 +16,17 @@ namespace shop.Controllers
     {
         private readonly shopDbContext _context;
         private readonly ISpaceshipService _spaceshipService;
+        private readonly ILogger<SpaceshipController> _logger;
         public SpaceshipController
             (
                 shopDbContext context,
-                ISpaceshipService spaceshipService
-
+                ISpaceshipService spaceshipService,
+                ILogger logger
             )
         {
             _context = context;
             _spaceshipService = spaceshipService;
+            _logger = (ILogger<SpaceshipController>)logger;
         }
         public IActionResult Index()
         {
@@ -92,7 +95,7 @@ namespace shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var spaceship = await _spaceshipService.Edit(id);
+            var spaceship = await _spaceshipService.GetAsync(id);
             if (spaceship == null)
             {
                 return NotFound();
