@@ -15,7 +15,7 @@ namespace shop.ApplicatonServices.Services
             //connection string
             var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=4nbvcd1JKVpDaVXUSZ39suC57SdfvcXX&metric=true";
 
-            using (WebClient client = new WebClient())
+            using (WebClient client = new ())
             {
                 string json = client.DownloadString(url);
                 WeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherRootDto>(json);
@@ -42,15 +42,11 @@ namespace shop.ApplicatonServices.Services
                 dto.DayIcon = weatherInfo.DailyForecasts[0].Day.Icon;
                 dto.DayIconPhase = weatherInfo.DailyForecasts[0].Day.IconPhase;
                 dto.DayHasPrecipitation = weatherInfo.DailyForecasts[0].Day.HasPrecipitation;
-                dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
-                dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
-
+                
                 dto.NightIcon = weatherInfo.DailyForecasts[0].Night.Icon;
                 dto.NightIconPhase = weatherInfo.DailyForecasts[0].Night.IconPhase;
                 dto.NightHasPrecipitation = weatherInfo.DailyForecasts[0].Night.HasPrecipitation;
-                dto.NightPrecipitationType = weatherInfo.DailyForecasts[0].Night.PrecipitationType;
-                dto.NightPrecipitationIntensity = weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity;
-
+                
                 var jsonString = new JavaScriptSerializer().Serialize(dto);
             }
             return dto;

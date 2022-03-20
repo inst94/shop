@@ -63,14 +63,10 @@ namespace shop.Controllers
             model.DayIcon = dto.DayIcon;
             model.DayIconPhase = dto.DayIconPhase;
             model.DayHasPrecipitation = dto.DayHasPrecipitation;
-            model.DayPrecipitationType = dto.DayPrecipitationType;
-            model.DayPrecipitationIntensity = dto.DayPrecipitationIntensity;
 
             model.NightIcon = dto.NightIcon;
             model.NightIconPhase = dto.NightIconPhase;
             model.NightHasPrecipitation = dto.NightHasPrecipitation;
-            model.NightPrecipitationType = dto.NightPrecipitationType;
-            model.NightPrecipitationIntensity = dto.NightPrecipitationIntensity;
 
             return View(model);
         }
