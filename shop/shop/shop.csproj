@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\shop.ApplicatonServices\shop.ApplicatonServices.csproj" />
     <ProjectReference Include="..\shop.Data\shop.Data.csproj" />
+    <ProjectReference Include="..\SpaceshipTest\SpaceshipTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

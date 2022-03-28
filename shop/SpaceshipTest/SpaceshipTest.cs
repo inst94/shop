@@ -30,6 +30,15 @@ namespace shop.SpaceshipTest
 
             Assert.NotNull(result);
         }
+        [Fact]
+        public async Task Check_Guid_IsNotInt()
+        {
+            string guid = "a1925975-d8fc-4f55-b614-d9b5aa7b4ebe";
+            var insertGuid = Guid.Parse(guid);
+            await Svc<ISpaceshipService>().GetAsync(insertGuid);
+
+            Assert.False(insertGuid.GetType() == typeof(int));
+        }
 
         [Fact]
         public async Task ShouldNot_GetByIdSpaceship_WhenReturnsResultAsync()
